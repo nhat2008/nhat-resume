@@ -13,8 +13,8 @@ import vercel from '@astrojs/vercel/serverless'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://astronaut.github.io',
-	// base: 'NHAT-RESUME',
+	site: 'https://nhat2008.github.io',
+	base: 'nhat-resume',
 	outDir: 'dist',
 
 	integrations: [
