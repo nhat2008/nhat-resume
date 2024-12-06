@@ -15,6 +15,7 @@ import vercel from '@astrojs/vercel/serverless'
 export default defineConfig({
 	site: 'https://astronaut.github.io',
 	// base: 'NHAT-RESUME',
+	outDir: 'dist',
 
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
