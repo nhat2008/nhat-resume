@@ -13,7 +13,9 @@ import vercel from '@astrojs/vercel/serverless'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.me',
+	site: 'https://nhat2008.github.io',
+	base: 'my-repo',
+  
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		tailwind({
