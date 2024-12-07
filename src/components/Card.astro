@@ -29,13 +29,14 @@ if (imagePath) {
 		href && 'transition-all hover:border-foreground/25 hover:shadow-sm'
 	)}
 	href={href}
+	target='_blank'
 >
 	{
 		imagePath && (
 			<Image
 				src={images[imagePath]()}
 				alt={altText}
-				class={cn('mb-3 md:absolute md:mb-0', imageClass)}
+				class={cn('mb-3 md:absolute md:mb-0 rounded-full', imageClass)}
 				loading='eager'
 			/>
 		)

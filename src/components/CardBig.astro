@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import { cn } from '@/utils'
+
+const {
+	as: Tag = 'div',
+	class: className,
+	href,
+	heading,
+	subheading,
+	date,
+	imagePath,
+	altText,
+	imageClass,
+	defaultExpanded = false, // Default value for the prop
+} = Astro.props
+
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/*.{jpeg,jpg,png,gif}')
+
+if (imagePath) {
+	if (!images[imagePath])
+		throw new Error(`"${imagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`)
+}
+---
+
+<Tag
+	id={`expandable-tag-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each instance
+	class={cn(
+		className,
+		'relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 cursor-pointer',
+		href && 'transition-all hover:border-foreground/25 hover:shadow-sm'
+	)}
+	href={href}
+	target={href ? '_blank' : undefined}
+>
+	<!-- Expand/Collapse Icon -->
+	<button 
+		id={`toggle-button-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each button
+		class="absolute top-2 right-2 flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition pointer-events-none">
+		<span 
+			id={`toggle-icon-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each icon
+			class="transition-transform duration-300 ease-in-out"
+		>
+			<svg 
+				xmlns="http://www.w3.org/2000/svg" 
+				fill="none" 
+				viewBox="0 0 24 24" 
+				stroke-width="2" 
+				stroke="currentColor" 
+				class="w-6 h-6">
+				<path 
+					id="icon-path"
+					stroke-linecap="round" 
+					stroke-linejoin="round" 
+					d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+			</svg>
+		</span>
+	</button>
+
+	<!-- Content -->
+	<div class="flex flex-col gap-y-1.5">
+		<div class="flex flex-col gap-y-0.5">
+			<h1 class="text-lg font-medium">{heading}</h1>
+			<h2 class="text-muted-foreground">{subheading}</h2>
+			<h2 class="text-muted-foreground">{date}</h2>
+		</div>
+		{
+			imagePath && (
+				<Image
+					src={images[imagePath]()}
+					alt={altText}
+					class={cn('mb-3 md:absolute md:mb-0 rounded-full', imageClass)}
+					loading="eager"
+				/>
+			)
+		}
+		<div 
+			id={`collapsible-content-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each content
+			class="collapsible-content overflow-hidden transition-max-height duration-300 ease-in-out"
+			style="max-height: 0;">
+			<slot />
+		</div>
+	</div>
+</Tag>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const tags = document.querySelectorAll('[id^="expandable-tag-"]'); // Select all components
+		tags.forEach(tag => {
+			const icon = tag.querySelector('[id^="toggle-icon-"]'); // Find the icon for each tag
+			const content = tag.querySelector('[id^="collapsible-content-"]'); // Find the content for each tag
+			const button = tag.querySelector('[id^="toggle-button-"]'); // Find the button for each tag
+
+			let isExpanded = tag.getAttribute('data-expanded') === 'true' || false; // Check initial expanded state
+
+			// Set initial icon rotation if expanded
+			if (isExpanded) {
+				icon.classList.add('rotate-180');
+				content.style.maxHeight = `${content.scrollHeight}px`; // Open content if expanded by default
+			}
+
+			// Toggle expand/collapse on click
+			tag.addEventListener('click', (event) => {
+				// Prevent click event from triggering parent link behavior if there is a href
+				if (tag.href) event.preventDefault();
+
+				isExpanded = !isExpanded;
+
+				// Toggle content height
+				content.style.maxHeight = isExpanded ? `${content.scrollHeight}px` : '0';
+
+				// Toggle icon rotation
+				icon.classList.toggle('rotate-180', isExpanded);
+
+				// Save the current state of expansion to the tag
+				tag.setAttribute('data-expanded', isExpanded);
+			});
+		});
+	});
+</script>

@@ -2,6 +2,7 @@
 import PageLayout from '../layouts/BaseLayout.astro'
 import Section from '../components/Section.astro'
 import Card from '../components/Card.astro'
+import CardBig from '@/components/CardBig.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import Label from '../components/Label.astro'
 import SkillLayout from '../components/SkillLayout.astro'
@@ -12,10 +13,19 @@ import mainPhoto from '../assets/main-photo.png'
 
 import { getAllPosts, sortMDByDate } from '@/utils'
 
+const domainKnowledge = ['Logistic', 'E-commerce', 'Food Services']
+const techDomains = ['Data Engineering', 'Cloud Computing', 'Generative AI', 'Backend Development' , 'Frontend Development']
 const languages = ['Python', 'SQL', 'Java', 'Javascript']
-const clouds = ['GCP - Google Cloud Platform', 'AWS - Amazone Web Services', 'Aliyun - Alibaba Cloud']
-const others = ['Apache Airflow', 'Apache Flink', 'Apache Superset']
-const genAI = ['Langchain', 'aisuite', 'LLM Models( Gemini, ChatGPT)']
+const clouds = ['GCP', 'AWS', 'Aliyun - Alibaba Cloud']
+const others = [
+	'Apache Airflow',
+	'Apache Flink',
+	'Apache Superset',
+	'Datahub',
+	'Apache Spark',
+	'Apache Beam'
+]
+const genAI = ['Langchain', 'aisuite', 'LLM Models( Google Gemini )']
 
 const MAX_POSTS = 10
 const allPosts = await getAllPosts()
@@ -68,13 +78,12 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 							></path></svg
 						>
 					</Label>
-					
 				</div>
 			</div>
 		</section>
 
 		<Section title='About'>
-			<p class='text-muted-foreground'>
+			<p>
 				I'm a data engineering expert focused on enhancing company operations through efficient data
 				systems. My goal is to enable businesses to fully embrace a data-driven approach, driving
 				better decision-making and optimizing their overall performance.
@@ -95,7 +104,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		}
 
 		<Section title='Experience'>
-			<Card
+			<CardBig
 				heading='Senior Manager - Data Engineering'
 				subheading='@Fairprice Group - Singapore'
 				date='Dec 2021 - Present'
@@ -103,25 +112,60 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Senior Manager - Data Engineering @ Fairprice Group'
 				imageClass='h-12 w-auto md:-left-16'
 				href='https://www.linkedin.com/company/fairprice-group/posts/?feedView=all'
-
 			>
-				<!-- <ul class='ml-4 list-disc text-muted-foreground'>
+				Technical Achievements:
+
+				<ul class='ml-4 list-disc text-muted-foreground'>
 					<li>
-						As the tech lead for the DE team @FairpriceGroup
+						Led the architecture and implementation of a scalable data platform (a.k.a DataPortal)
+						for FairPrice Group (FPG) using Google Cloud Platform (GCP) services.
 					</li>
-				</ul> -->
-			</Card>
-			<Card
+					<li>Led the development of in-house solutions for the data team at FPG.</li>
+					<li>
+						Led the customization and optimization of Data open-source solutions to align with the
+						specific requirements of FPG.
+					</li>
+					<li>
+						Worked with vendors to validate the solution for the data team department, including
+						assessing capacity requirements and ensuring the solution fit within budget constraints
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Senior Regional Manager - Data Engineering @ Lazada Logistics'
 				subheading='@Lazada Group - Singapore'
 				date='Jan 2020 - Dec 2021'
 				imagePath='/src/assets/logo-lazada.png'
 				altText='Senior Manager - Data Engineering @ Fairprice Group'
-
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				Business and Operation Impacts:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Led a data team (2 headcounts in Singapore, and 2 headcounts in China) in migrating the
+						data warehouse during the platform transition from an on-premise solution to Alibaba
+						Cloud, ensuring zero downtime for all downstream reports across six countries.
+					</li>
+					<li>
+						Led key components (First mile, Sortation, Last mile) in the Logistic Data Product
+						(Eagle), enabling the operations team to achieve a 25-30% reduction in logistics costs.
+					</li>
+				</ul>
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Architected and constructed end-to-end core data pipelines for a new BIG Logistics Data
+						Warehouse utilizing technologies such as Kafka, Hadoop, Hive, MapReduce, Spark, and
+						Flink in the same six countries.
+					</li>
+					<li>
+						Architected and built data pipelines with a Lambda architecture (Batch + Real-time) for
+						core modules in Logistics Data Products, both internal and external, using Flink, Hive,
+						Hadoop, HBase, MySQL (Sharding), and Hologres, again in the same six countries.
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Regional Manager - Data Engineering @ Lazada Logistics'
 				subheading='@Lazada Group - Singapore'
 				date='Oct 2018 - Jan 2020'
@@ -129,8 +173,31 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Senior Manager - Data Engineering @ Fairprice Group'
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				Business and Operation Impacts:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Enabled data-driven operations across six countries, resulting in improved
+						decision-making and operational efficiency for Lazada Logistics.
+					</li>
+					<li>
+						Reduced manpower costs for BI and Operations teams across six countries by building
+						centralized data models, ensuring data consistency and quality.
+					</li>
+					<li>
+						Reduced manpower costs for Operations teams and 3PL Partners by enabling end-to-end data
+						for the data product (3PL portal) that serves all 3PL companies partnering with Lazada.
+					</li>
+				</ul>
+				Technical Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Managed a 300TB+ Hive Data Warehouse (MaxCompute) for Lazada Logistics in six countries
+						(Singapore, Indonesia, Malaysia, Thailand, Philippines, and Vietnam).
+					</li>
+					<li>Built automation tools for internal processes to reduce manpower costs.</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Senior Data Engineer'
 				subheading='@Tenpoint7 - Vietnam'
 				date='Aug 2017 - Oct 2018'
@@ -138,8 +205,36 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Senior Data Engineer'
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				Business Impacts:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Led the architecture and implementation of the data processing side for the second AI
+						product (Addy version 1), enabling the company to analyze social media data and generate
+						actionable insights. This innovation significantly contributed to securing additional
+						investment by demonstrating the company's advanced analytical capabilities and growth
+						potential.
+					</li>
+				</ul>
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Designed and developed a scalable data processing pipeline using AWS cloud services for
+						Addy, capable of scaling out to run up to a hundred end-to-end data pipelines with
+						Machine Learning models. This included the orchestration of data ingestion,
+						preprocessing, feature engineering, model training, validation, and deployment
+					</li>
+					<li>
+						Worked with the Data Science team to deploy and scale machine learning models in the AWS
+						cloud.
+					</li>
+
+					<li>
+						Mentored junior team members in using Apache Spark and solving complex technical
+						problems.
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Data Engineer'
 				subheading='@Tenpoint7 - Vietnam'
 				date='Sept 2016 - Aug 2017'
@@ -147,8 +242,32 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Data Engineer'
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				Business Impacts:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Led the development of the company's first AI data product (TenPoint7 Cloud),
+						significantly enhancing the ability to present and sell ideas to both investors and
+						clients, including those in marketing and non-profit sectors in the U.S.
+					</li>
+					<li>
+						Provided technical support to the data consulting team, improving the delivery of
+						results and overall client satisfaction.
+					</li>
+				</ul>
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Implemented data lake and pipeline solutions for clients, utilizing tools such as
+						Airflow, EMR, S3, ECS, Lambda, and API Gateway.
+					</li>
+					<li>
+						Built scalable crawlers and ETL tools using ECS(Fargate), S3, Docker, Python, DynamoDB,
+						SQS, SNS, and Athena. ( capable of scaling out to support thousands of data points
+						simultaneously)
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Senior Backend Engineer'
 				subheading='@Tiki - Vietnam'
 				date='Oct 2015 - Sept 2016'
@@ -156,38 +275,68 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Senior Backend Engineer'
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Optimized Miki's Content Management System (CMS) and tuned databases for performance.
+					</li>
+					<li>Created and modified APIs to enhance functionality for mobile applications.</li>
+					<li>Integrated Miki's systems with TIKI's existing infrastructure.</li>
+					<li>Implemented Continuous Integration/Continuous Deployment (CI/CD) pipelines.</li>
+					<li>
+						Migrated Miki's system to a cloud-based architecture (AWS) and adopted microservices
+						(Docker).
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Backend Engineer'
 				subheading='@A Startup Company - Vietnam'
 				date='May 2015 - Aug 2016'
 				altText='Backend Engineer'
 				imagePath='/src/assets/logo-free.png'
-
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			<Card
+				<p>
+					Building a Software-as-a-Service (SaaS) business intelligence platform for retail. The
+					SaaS solution includes features such as optimal order management, sales trend analysis,
+					and sales forecasting.
+				</p>
+				Business Impacts:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>Developed a Proof of Concept (PoC) to showcase the platform's value to investors.</li>
+				</ul>
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>Led the backend development of the SaaS platform.</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Data Mining Engineer'
 				subheading='@Sentifi - Vietnam'
 				date='Oct 2014 - May 2015'
 				altText='Data Mining Engineer'
 				imageClass='h-12 w-auto md:-left-16'
 				imagePath='/src/assets/logo-sentifi.png'
-
 			>
-			</Card>
-			<Card
+				Tech Achievements:
+				<ul class='ml-4 list-disc text-muted-foreground'>
+					<li>
+						Developed a scalable system using Queue Architecture (RabbitMQ) capable of crawling and
+						processing data from multiple sources, handling up to millions of records.
+					</li>
+				</ul>
+			</CardBig>
+			<CardBig
 				heading='Technical Consultant Odoo'
 				subheading='@Trobz - Vietnam'
 				date='Jan 2014 - Oct 2014'
 				altText='Technical Consultant Odoo'
 				imagePath='/src/assets/logo-trobz.png'
-
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			</Card>
-			
+				Creating and modifying functions, web services, and modules in Odoo (former OpenERP)
+			</CardBig>
 		</Section>
 
 		<Section title='Education'>
@@ -200,9 +349,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
-					<li>
-						Master's degree, Information Technology for Banking and Business.
-					</li>
+					<li>Master's degree, Information Technology for Banking and Business.</li>
 				</ul>
 			</Card>
 			<Card
@@ -214,12 +361,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
-					<li>
-						Studied in the honor program of University Of Science Ho Chi Minh City.
-					</li>
+					<li>Studied in the honor program of University Of Science Ho Chi Minh City.</li>
 				</ul>
 			</Card>
-			
 		</Section>
 
 		<!-- <Section title='Projects'>
@@ -274,11 +418,12 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		</Section>
 
 		<Section title='Skills'>
-			<SkillLayout title='Languages' skills={languages} />
-			<SkillLayout title='Clouds' skills={clouds} />
-			<SkillLayout title='GenAI' skills={genAI} />
+			<SkillLayout title='Domain Knowledge' skills={domainKnowledge} />
+			<SkillLayout title='Tech Domains' skills={techDomains} />
+			<SkillLayout title='Programming Languages' skills={languages} />
+			<SkillLayout title='Cloud Services' skills={clouds} />
+			<SkillLayout title='GenAI Knowledge' skills={genAI} />
 			<SkillLayout title='Others' skills={others} />
 		</Section>
 	</div>
-
 </PageLayout>

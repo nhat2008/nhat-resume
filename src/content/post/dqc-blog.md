@@ -1,6 +1,6 @@
 ---
-title: "Streamlining Data Quality Control with a Centralized Service"
-description: "How we built the Data Quality Control Service to centralize all the rules for BQ tables at 1 place"
+title: "Centralized Service for Streamlining Data Quality Control"
+description: "How We Centralized Data Quality Rules for BigQuery Tables with a Unified Service"
 publishDate: "29 Aug 2023"
 tags: ["DQC" , "GCP"]
 ---

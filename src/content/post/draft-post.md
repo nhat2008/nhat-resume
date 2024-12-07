@@ -1,9 +1,8 @@
 ---
-title: "AI Workspace"
-description: "Applying the genAI in our daily works to reduce the manual works and improve the productivities"
+title: "Building an AI Workspace for Enhanced Productivity"
+description: "Integrating GenAI into Daily Workflows to Minimize Manual Effort and Boost Productivity"
 publishDate: "10 Dec 2024"
-tags: ["test"]
-draft: true
+tags: ["genAI"]
 ---
 
-If this is working correctly, this post should only be accessible in a dev environment, as well as any tags that are unique to this post.
+#WIP

@@ -1,6 +1,6 @@
 ---
-title: "Monitoring BigQuery costs in real time"
-description: "Monitoring BigQuery costs in real time using Cloud Pub/Sub and Apache Beam"
+title: "Real-Time Monitoring of BigQuery Costs"
+description: "Real-Time BigQuery Cost Monitoring with Cloud Pub/Sub and Apache Beam"
 publishDate: "09 Jan 2023"
 tags: ["BQ" , "GCP" , "Cost"]
 ---
