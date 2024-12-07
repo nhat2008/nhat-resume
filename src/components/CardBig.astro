@@ -59,12 +59,8 @@ if (imagePath) {
 	</button>
 
 	<!-- Content -->
-	<div class="flex flex-col gap-y-1.5">
-		<div class="flex flex-col gap-y-0.5">
-			<h1 class="text-lg font-medium">{heading}</h1>
-			<h2 class="text-muted-foreground">{subheading}</h2>
-			<h2 class="text-muted-foreground">{date}</h2>
-		</div>
+	<div class=" flex-col">
+		
 		{
 			imagePath && (
 				<Image
@@ -75,6 +71,12 @@ if (imagePath) {
 				/>
 			)
 		}
+		<div class="flex flex-col gap-y-0.5">
+			<h1 class="text-lg font-medium">{heading}</h1>
+			<h2 class="text-muted-foreground">{subheading}</h2>
+			<h2 class="text-muted-foreground">{date}</h2>
+		</div>
+
 		<div 
 			id={`collapsible-content-${Math.random().toString(36).substr(2, 9)}`}
 			class="collapsible-content overflow-hidden transition-max-height duration-300 ease-in-out"
