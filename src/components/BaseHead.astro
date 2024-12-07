@@ -91,7 +91,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 
 <!-- Google tag (gtag.js) -->
 <script async src='https://www.googletagmanager.com/gtag/js?id=G-584W3QT8GY'></script>
-<script>
+<script is:inline>
 	window.dataLayer = window.dataLayer || []
 	function gtag() {
 		dataLayer.push(arguments)
