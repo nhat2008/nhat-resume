@@ -27,7 +27,6 @@ Tech Achievements:
         Worked with the Data Science team to deploy and scale machine learning models in the AWS
         cloud.
     </li>
-
     <li>
         Mentored junior team members in using Apache Spark and solving complex technical
         problems.
