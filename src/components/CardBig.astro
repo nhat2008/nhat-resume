@@ -25,7 +25,7 @@ if (imagePath) {
 ---
 
 <Tag
-	id={`expandable-tag-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each instance
+	id={`expandable-tag-${Math.random().toString(36).substr(2, 9)}`}
 	class={cn(
 		className,
 		'relative rounded-2xl border border-border bg-primary-foreground px-5 py-3 cursor-pointer',
@@ -36,10 +36,10 @@ if (imagePath) {
 >
 	<!-- Expand/Collapse Icon -->
 	<button 
-		id={`toggle-button-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each button
+		id={`toggle-button-${Math.random().toString(36).substr(2, 9)}`}
 		class="absolute top-2 right-2 flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 transition pointer-events-none">
 		<span 
-			id={`toggle-icon-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each icon
+			id={`toggle-icon-${Math.random().toString(36).substr(2, 9)}`}
 			class="transition-transform duration-300 ease-in-out"
 		>
 			<svg 
@@ -76,7 +76,7 @@ if (imagePath) {
 			)
 		}
 		<div 
-			id={`collapsible-content-${Math.random().toString(36).substr(2, 9)}`} // Unique ID for each content
+			id={`collapsible-content-${Math.random().toString(36).substr(2, 9)}`}
 			class="collapsible-content overflow-hidden transition-max-height duration-300 ease-in-out"
 			style="max-height: 0;">
 			<slot />
@@ -87,34 +87,47 @@ if (imagePath) {
 <script>
 	document.addEventListener('DOMContentLoaded', () => {
 		const tags = document.querySelectorAll('[id^="expandable-tag-"]'); // Select all components
+
 		tags.forEach(tag => {
 			const icon = tag.querySelector('[id^="toggle-icon-"]'); // Find the icon for each tag
 			const content = tag.querySelector('[id^="collapsible-content-"]'); // Find the content for each tag
 			const button = tag.querySelector('[id^="toggle-button-"]'); // Find the button for each tag
 
-			let isExpanded = tag.getAttribute('data-expanded') === 'true' || false; // Check initial expanded state
+			// If icon or content is not found, return early to avoid errors
+			if (!icon || !content) return;
+
+			// Cast content to HTMLElement to access `style`
+			const contentElement = content as HTMLElement;
+
+			// Cast tag to HTMLAnchorElement to access `href`
+			const anchorTag = tag as HTMLAnchorElement;
+
+			// Get initial expanded state from the data-expanded attribute (use 'true' or 'false' strings)
+			let isExpanded = tag.getAttribute('data-expanded') === 'true';
 
 			// Set initial icon rotation if expanded
 			if (isExpanded) {
 				icon.classList.add('rotate-180');
-				content.style.maxHeight = `${content.scrollHeight}px`; // Open content if expanded by default
+				contentElement.style.maxHeight = `${contentElement.scrollHeight}px`; // Open content if expanded by default
 			}
 
 			// Toggle expand/collapse on click
 			tag.addEventListener('click', (event) => {
 				// Prevent click event from triggering parent link behavior if there is a href
-				if (tag.href) event.preventDefault();
+				if (anchorTag.href) event.preventDefault();
 
 				isExpanded = !isExpanded;
 
 				// Toggle content height
-				content.style.maxHeight = isExpanded ? `${content.scrollHeight}px` : '0';
+				contentElement.style.maxHeight = isExpanded ? `${contentElement.scrollHeight}px` : '0';
 
 				// Toggle icon rotation
-				icon.classList.toggle('rotate-180', isExpanded);
+				if (icon) {
+					icon.classList.toggle('rotate-180', isExpanded);
+				}
 
-				// Save the current state of expansion to the tag
-				tag.setAttribute('data-expanded', isExpanded);
+				// Save the current state of expansion to the tag (use 'true' or 'false' as string)
+				tag.setAttribute('data-expanded', isExpanded.toString());
 			});
 		});
 	});
